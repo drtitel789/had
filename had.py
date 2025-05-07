@@ -23,8 +23,11 @@ segments = [(x, y)]
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Snake Game")
 font = pygame.font.SysFont("comicsansms", 30)
+running = True
 
 def konec(konec):
+    global running
+    
     if konec == 1:
         screen.fill((yellow))
         score_text = font.render(f"Skóre: {points}", True, white)
@@ -33,15 +36,31 @@ def konec(konec):
         waiting = True
         while waiting:
             for event in pygame.event.get():
+                if event.type == pygame.key.get_pressed():
+                    if event.key == pygame.K_SPACE:
+                        print(pygame.K_SPACE)
+                        new_game()
+                        running = False
+                        waiting = False
                 if event.type == pygame.KEYDOWN:
-                    waiting = False
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-        pygame.quit()
-        exit()
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        exit()
+    
+def new_game():
+    global x, y, x1, y2, z, narocnost, speed, direction, points, segments
+    x = 100
+    y = 100
+    x1 = random.randint(25, screen_width - 25)
+    y2 = random.randint(25, screen_height - 25)
+    z = 2
+    narocnost = 0
+    speed = 10
+    direction = None
+    points = 0
+    segments = [(x, y)]
 
-while True:
+while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -123,6 +142,8 @@ while True:
 
     pygame.display.flip()
     time.sleep(0.07)
+    
+konec(1)
 
 
 
