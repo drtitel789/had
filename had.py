@@ -36,16 +36,13 @@ def konec(konec):
         waiting = True
         while waiting:
             for event in pygame.event.get():
-                if event.type == pygame.key.get_pressed():
-                    if event.key == pygame.K_SPACE:
-                        print(pygame.K_SPACE)
-                        new_game()
-                        running = False
-                        waiting = False
+                #if event.type == pygame.key.get_pressed():
                 if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        raise SystemExit
+                    
                     if event.key == pygame.K_ESCAPE:
-                        pygame.quit()
-                        exit()
+                        raise KeyboardInterrupt
     
 def new_game():
     global x, y, x1, y2, z, narocnost, speed, direction, points, segments
@@ -144,6 +141,3 @@ while running:
     time.sleep(0.07)
     
 konec(1)
-
-
-
