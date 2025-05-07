@@ -1,5 +1,8 @@
-try:
-	while True:
-        from had import *
-except KeyboardInterrupt:
-    print("Exitting")
+while True:
+    try:
+        import had
+    except SystemExit:      
+        pass
+    except KeyboardInterrupt:
+        print("Exit")
+        break
